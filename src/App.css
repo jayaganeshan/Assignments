@@ -1,38 +1,64 @@
 .App {
-  text-align: center;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+section {
+  width: 30vw;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-weight: bold;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+label::after {
+  content: "*";
+  color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  height: 32px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+}
+input:focus {
+  border: 2px solid blue;
+}
+
+.search_options {
+  border: 1px solid gray;
+  margin-top: 10px;
+  position: absolute;
+  top: 100%;
+  width: inherit;
+  border-radius: 5px;
+  max-height: 180px;
+  overflow-y: scroll;
+}
+.outline {
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+  font-weight: normal;
+  padding: 10px;
+}
+.search_options::-webkit-scrollbar {
+  width: 5px;
+}
+.search_options::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+.search_options::-webkit-scrollbar-thumb {
+  background: darkgray;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  top: 6px;
 }
