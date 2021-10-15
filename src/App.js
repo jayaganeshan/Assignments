@@ -1,24 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Options from "./components/Options";
 
 function App() {
-  const [search, setSearch] = useState("");
-  const [options, setOptions] = useState([]);
-  const [show, setShow] = useState(false);
-  const [output, setOutput] = useState();
+  const [search, setSearch] = useState(""); //store the search element
+  const [options, setOptions] = useState([]); //for storing Options
+  const [users, setUsers] = useState([]);
+  const [show, setShow] = useState(false); //to show or hide the option field
+  const [output, setOutput] = useState(); //for showing output of the selected Element
+  const [length, setLength] = useState(5); //for storing the length of options
+
   //getting user Details
-  const getUser = async () => {
-    const data = await fetch("/users.json");
-    return await data.json();
+  const handlePropagation = (e) => {
+    e.stopPropagation();
+    setShow(false);
   };
-  //handle Click
-  const handleInput = async () => {
-    const users = await getUser();
-    setOptions(users);
+  const getUser = async () => {};
+  useEffect(() => {
+    console.log("1");
+    async function getUser() {
+      const result = await fetch("/users.json");
+      const data = await result.json();
+      setUsers(data);
+    }
+    getUser();
+  }, []);
+  //Loading data on Scroll
+  async function loadData() {
+    if (users.length < length) {
+      return;
+    }
+    setOptions(users.slice(0, length));
+    setLength(length + 5);
+  }
+  //handling Scroll
+  const handleScroll = (e) => {
+    const bottom =
+      e.target.scrollHeight - Math.round(e.target.scrollTop) ===
+      e.target.clientHeight;
+    if (bottom) {
+      loadData();
+    }
+  };
+
+  //handling Clicking search box
+  const handleInput = async (e) => {
+    e.stopPropagation();
+    loadData();
     setShow(true);
   };
-  //handleChange
+
+  //handling the change of input field
   const handleChange = async (e) => {
     setShow(true);
     setSearch(e.target.value);
@@ -29,8 +61,9 @@ function App() {
     });
     setOptions(opt);
   };
+
   return (
-    <div className="App" onClick={() => setShow(false)}>
+    <div className="App" onClick={handlePropagation}>
       <section>
         <label htmlFor="user">Selector</label>
         <div className="dropdown" onClick={handleInput}>
@@ -43,7 +76,11 @@ function App() {
           ></input>
         </div>
         {show && (
-          <div className="search_options">
+          <div
+            className="search_options"
+            onScroll={handleScroll}
+            onClick={() => setShow(false)}
+          >
             <Options
               details={options}
               value={setSearch}

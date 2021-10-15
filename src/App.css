@@ -34,7 +34,7 @@ input:focus {
   margin-top: 10px;
   position: absolute;
   top: 100%;
-  width: inherit;
+  width: 30vw;
   border-radius: 5px;
   max-height: 180px;
   overflow-y: scroll;
