@@ -1,9 +1,9 @@
 import "../App.css";
 
-function Options({ details, value }) {
+function Options({ details, value, setOutput }) {
   const showElement = (element) => {
     value(element.name);
-    console.log(element);
+    setOutput(element);
   };
   return (
     <>

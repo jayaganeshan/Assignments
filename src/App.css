@@ -1,7 +1,10 @@
 .App {
   height: 100vh;
 }
-
+.output {
+  width: 30vw;
+  margin: 10px auto;
+}
 section {
   width: 30vw;
   margin: auto;
@@ -35,6 +38,7 @@ input:focus {
   border-radius: 5px;
   max-height: 180px;
   overflow-y: scroll;
+  background-color: white;
 }
 .outline {
   border-bottom: 1px solid gray;
